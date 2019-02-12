@@ -7,7 +7,7 @@ class Test extends React.Component
         console.log( "test" );
         return (
             <div>
-                <h1>Open Macro Deck!</h1>
+                <h1>Open Macro Board!</h1>
             </div>
         );
     }

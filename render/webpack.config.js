@@ -29,7 +29,7 @@ const config = {
     [
         new HtmlWebpackPlugin(
             {
-                title: "Open Macro Deck",
+                title: "Open Macro Board",
                 template: path.join( __dirname, "template", "index.html" )
             }
         )

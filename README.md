@@ -1,2 +1,2 @@
-# open-macro-deck
-Open Macro Deck
+# open-macro-board
+Open Macro Board
