@@ -1,8 +1,12 @@
 {
   "name": "open-macro-board-render",
   "version": "1.0.0",
-  "description": "",
+  "description": "Webpack based frontend.",
   "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/denjutv/open-macro-board.git"
+  },
   "dependencies": {
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
@@ -21,7 +25,8 @@
     "webpack-dev-server": "^3.1.14"
   },
   "scripts": {
-    "start": "webpack-dev-server --open"
+    "build": "webpack",
+    "start": "webpack-dev-server"
   },
   "author": "Denju",
   "license": "ISC"
