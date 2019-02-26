@@ -28,6 +28,14 @@ class App
                 createWindow();
             }
         });
+
+        // ipc
+        const { ipcMain } = require( "electron" );
+
+        ipcMain.on( "REQUEST_BUTTON_SETTINGS", ( event, props ) =>
+        {
+            console.log( "tada" );
+        });
     }
 
     parseAguments()
