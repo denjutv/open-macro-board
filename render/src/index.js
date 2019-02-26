@@ -1,7 +1,3 @@
-import React from "react";
-import { render } from "react-dom";
-import Test from "./test";
+import frontend from "./frontend";
 
-render( <Test />, document.getElementById( "content" ) );
-
-// alert(1);
+frontend.init( document.getElementById( "content" ) );
