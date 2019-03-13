@@ -5,6 +5,7 @@ import { requestButtonSettings } from "./action";
 import { createStore, applyMiddleware } from "redux";
 import rootReducer from "./reducer";
 import buttonMiddleare from "./middleware/button";
+import { MAIN_RENDER_CHANNEL } from "../../shared/channel";
 
 /**
  * Main frontend class, that creates and holds the store, requests the button settings from the main process and starts the rendering.
@@ -25,6 +26,13 @@ class Frontend
     {
         // create store
         this.store = createStore( rootReducer, applyMiddleware( buttonMiddleare ) );
+
+        // set up ipc handler
+        // handle ipc message by dispatching them to the store
+        window.electron.ipcRenderer.on( MAIN_RENDER_CHANNEL, ( event, message ) =>
+        {
+            this.store.dispatch( Object.assign( message, {event} ) );
+        });
 
         // request button settings
         this.store.dispatch( requestButtonSettings() );

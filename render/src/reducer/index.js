@@ -3,5 +3,5 @@ import buttonReducer from "./button";
 
 export default combineReducers(
 {
-    buttonReducer
+    buttons: buttonReducer
 });

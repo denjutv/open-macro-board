@@ -5,13 +5,13 @@ class MainWindow
         this.win = null;
     }
 
-    create( isDev )
+    create( displaySettings, isDev )
     {
         const { BrowserWindow } = require( "electron" );
 
         this.win = new BrowserWindow({
-            width: 800,
-            height: 600,
+            width: displaySettings.width,
+            height: displaySettings.height,
             transparent: false,
             webPreferences: {
                 nodeIntegration: false,

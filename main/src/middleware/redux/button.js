@@ -1,5 +1,6 @@
-import { REQUEST_BUTTON_SETTINGS } from "../action"
-import { MAIN_RENDER_CHANNEL } from "../../../shared/channel";
+const { REQUEST_BUTTON_SETTINGS, DELIVER_BUTTON_SETTINGS, deliverButtonSettings } = require( "../../action" );
+const { MAIN_RENDER_CHANNEL } = require( "../../../../shared/channel" );
+const electron = require( "electron" );
 
 /**
  * Middleware that listens for REQUEST_BUTTON_SETTINGS event to pass that event via ipc to the main process.
@@ -9,12 +10,11 @@ const buttonMiddleware = ( { getState, dispatch } ) =>
     return ( next ) => (action) => 
     {
         let result = null;
-        console.log( action );
 
         switch( action.type )
         {
             case REQUEST_BUTTON_SETTINGS:
-                window.electron.ipcRenderer.send( MAIN_RENDER_CHANNEL, action );
+                action.event.sender.send( MAIN_RENDER_CHANNEL, deliverButtonSettings( getState().buttons ) );
             break;
             default:
                 result = next( action );
@@ -23,4 +23,4 @@ const buttonMiddleware = ( { getState, dispatch } ) =>
     };
 };
 
-export default buttonMiddleware;
+module.exports = buttonMiddleware;
