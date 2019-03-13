@@ -7,6 +7,11 @@ class App
         this.isDev = false;
         this.conf = null;
         this.store = null;
+
+        this.mainWindow = null;
+
+        this.expressApp = null;
+        this.httpServer = null;
     }
 
     init()
@@ -29,6 +34,9 @@ class App
                 this.app.quit();
             }
         });
+
+        // init websockets
+        this.initWebsockets();
 
         // ipc
         this.initIpc();
@@ -84,6 +92,30 @@ class App
         ipcMain.on( MAIN_RENDER_CHANNEL, ( event, message ) =>
         {
             this.store.dispatch( Object.assign( message, {event} ) );
+        });
+    }
+
+    initWebsockets()
+    {
+        this.expressApp = require( "express" )();
+        this.httpServer = require( "http" ).Server( this.expressApp );
+        const io = require( "socket.io" )( this.httpServer );
+
+        // test route
+        this.expressApp.get( "/", ( req, res ) =>
+        {
+            res.send( "open macro board" );
+        });
+
+        io.on( "connection", (socket) =>
+        {
+            console.log( "a user connected" );
+        });
+
+        const port = this.conf.get("port");
+        this.httpServer.listen( port, () =>
+        {
+            console.log( "server is listening on port " + port );
         });
     }
 };

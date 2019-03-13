@@ -27,5 +27,7 @@ module.exports =
         height: 480,
         fullscreen: true
     },
-    buttons: defaultButtonPositions
+    buttons: defaultButtonPositions,
+
+    port: 3000
 };
