@@ -1,4 +1,4 @@
-const { REQUEST_BUTTON_SETTINGS, DELIVER_BUTTON_SETTINGS, deliverButtonSettings } = require( "../../action" );
+const { REQUEST_BUTTON_SETTINGS, BUTTON_PRESSED, deliverButtonSettings } = require( "../../action" );
 const { MAIN_RENDER_CHANNEL } = require( "../../../../shared/channel" );
 const electron = require( "electron" );
 
@@ -15,6 +15,9 @@ const buttonMiddleware = ( { getState, dispatch } ) =>
         {
             case REQUEST_BUTTON_SETTINGS:
                 action.event.sender.send( MAIN_RENDER_CHANNEL, deliverButtonSettings( getState().buttons ) );
+            break;
+            case BUTTON_PRESSED:
+                console.log( action );
             break;
             default:
                 result = next( action );
