@@ -7,11 +7,11 @@ module.exports =
     REQUEST_BUTTON_SETTINGS,
     DELIVER_BUTTON_SETTINGS,
 
-    deliverButtonSettings: ( settings ) =>
+    deliverButtonSettings: ( buttons ) =>
     {
         return {
             type: DELIVER_BUTTON_SETTINGS,
-            settings
+            buttons
         };
     }
 };

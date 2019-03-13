@@ -9,7 +9,6 @@ const buttonMiddleware = ( { getState, dispatch } ) =>
     return ( next ) => (action) => 
     {
         let result = null;
-        console.log( action );
 
         switch( action.type )
         {

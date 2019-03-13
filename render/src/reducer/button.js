@@ -1,4 +1,4 @@
-import { REQUEST_BUTTON_SETTINGS } from "../action";
+import { DELIVER_BUTTON_SETTINGS } from "../action";
 
 /**
  * Handles all events, that change the buttons.
@@ -10,7 +10,8 @@ const buttonReducer = ( state = null, action ) =>
 {
     switch( action.type )
     {
-        case REQUEST_BUTTON_SETTINGS:
+        case DELIVER_BUTTON_SETTINGS:
+            state = action.buttons;
         break;
     }
 

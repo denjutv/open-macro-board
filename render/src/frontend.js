@@ -1,8 +1,9 @@
 import React from "react";
 import { render } from "react-dom";
-import Test from "./test";
+import BoardContainer from "./container/board";
 import { requestButtonSettings } from "./action";
 import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
 import rootReducer from "./reducer";
 import buttonMiddleare from "./middleware/button";
 import { MAIN_RENDER_CHANNEL } from "../../shared/channel";
@@ -37,7 +38,12 @@ class Frontend
         // request button settings
         this.store.dispatch( requestButtonSettings() );
 
-        render( <Test />, contentElement );
+        render( 
+            <Provider store={this.store}>
+                <BoardContainer />
+            </Provider>,
+            contentElement
+        );
     }
 };
 

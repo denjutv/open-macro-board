@@ -1,3 +1,9 @@
 body {
     margin: 0px;
+    background-color: black;
+}
+
+.button {
+    position: absolute;
+    background-color: red;
 }
