@@ -1,4 +1,4 @@
-import { REQUEST_BUTTON_SETTINGS } from "../action"
+import { REQUEST_BUTTON_SETTINGS, BUTTON_PRESSED } from "../action"
 import { MAIN_RENDER_CHANNEL } from "../../../shared/channel";
 
 /**
@@ -13,6 +13,7 @@ const buttonMiddleware = ( { getState, dispatch } ) =>
         switch( action.type )
         {
             case REQUEST_BUTTON_SETTINGS:
+            case BUTTON_PRESSED:
                 window.electron.ipcRenderer.send( MAIN_RENDER_CHANNEL, action );
             break;
             default:
