@@ -10,8 +10,8 @@ class App
 
         this.mainWindow = null;
 
-        this.expressApp = null;
-        this.httpServer = null;
+        const ConnectionManager = require( "./connectionManager" );
+        this.connectionManager = new ConnectionManager();
     }
 
     init()
@@ -97,26 +97,8 @@ class App
 
     initWebsockets()
     {
-        this.expressApp = require( "express" )();
-        this.httpServer = require( "http" ).Server( this.expressApp );
-        const io = require( "socket.io" )( this.httpServer );
-
-        // test route
-        this.expressApp.get( "/", ( req, res ) =>
-        {
-            res.send( "open macro board" );
-        });
-
-        io.on( "connection", (socket) =>
-        {
-            console.log( "a user connected" );
-        });
-
         const port = this.conf.get("port");
-        this.httpServer.listen( port, () =>
-        {
-            console.log( "server is listening on port " + port );
-        });
+        this.connectionManager.init( port );
     }
 };
 
