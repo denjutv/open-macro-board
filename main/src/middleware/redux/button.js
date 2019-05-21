@@ -1,6 +1,6 @@
 const { REQUEST_BUTTON_SETTINGS, BUTTON_PRESSED, deliverButtonSettings } = require( "../../action" );
 const { MAIN_RENDER_CHANNEL } = require( "../../../../shared/channel" );
-const electron = require( "electron" );
+const app = require( "../../app" );
 
 /**
  * Middleware that listens for REQUEST_BUTTON_SETTINGS event to pass that event via ipc to the main process.
@@ -17,7 +17,7 @@ const buttonMiddleware = ( { getState, dispatch } ) =>
                 action.event.sender.send( MAIN_RENDER_CHANNEL, deliverButtonSettings( getState().buttons ) );
             break;
             case BUTTON_PRESSED:
-                console.log( action );
+                app.connectionManager.broadcast( {type: BUTTON_PRESSED, buttonIndex: action.buttonIndex } );
             break;
             default:
                 result = next( action );
