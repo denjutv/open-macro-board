@@ -39,7 +39,7 @@ class ConnectionManager
         });
     }
 
-    // todo: make thrad safe
+    // todo: check if io sockets dont create thread unsafety!!!
     broadcast( action )
     {
         const connectionCount = this.sockets.length;
