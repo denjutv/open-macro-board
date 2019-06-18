@@ -34,12 +34,6 @@ class App
                 this.app.quit();
             }
         });
-
-        // init websockets
-        this.initWebsockets();
-
-        // ipc
-        this.initIpc();
     }
     
     parseAguments()
@@ -72,6 +66,15 @@ class App
     initMainWindow()
     {
         this.mainWindow = require( "./mainWindow" );
+
+        this.app.on("browser-window-created",() =>
+        {
+            // ipc
+            this.initIpc();
+            
+            // init websockets
+            this.initWebsockets();
+        });
 
         this.app.on( "ready", () => this.mainWindow.create( this.conf.get("display"), this.isDev ) );
 
