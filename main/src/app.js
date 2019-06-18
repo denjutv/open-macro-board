@@ -98,7 +98,7 @@ class App
     initWebsockets()
     {
         const port = this.conf.get("port");
-        this.connectionManager.init( port );
+        this.connectionManager.init( port, this.store.dispatch );
     }
 };
 

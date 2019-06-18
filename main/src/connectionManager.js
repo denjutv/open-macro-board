@@ -8,7 +8,7 @@ class ConnectionManager
         this.httpServer = null;
     }
 
-    init( port )
+    init( port, dispatch )
     {
         this.expressApp = require( "express" )();
         this.httpServer = require( "http" ).Server( this.expressApp );
@@ -30,6 +30,11 @@ class ConnectionManager
                 const index = this.sockets.indexOf( socket );
                 console.log( "a user disconnected", index );
                 this.sockets.splice( index, 1 );
+            });
+
+            socket.on( "action", ( action ) =>
+            {
+                dispatch( action );
             });
         });
 

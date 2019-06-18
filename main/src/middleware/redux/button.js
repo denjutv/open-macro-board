@@ -1,5 +1,6 @@
 const { REQUEST_BUTTON_SETTINGS, BUTTON_PRESSED, deliverButtonSettings } = require( "../../action" );
 const { MAIN_RENDER_CHANNEL } = require( "../../../../shared/channel" );
+const {  BUTTONS_UPDATE } = require( "../../../../shared/actionType" );
 const app = require( "../../app" );
 
 /**
@@ -18,6 +19,9 @@ const buttonMiddleware = ( { getState, dispatch } ) =>
             break;
             case BUTTON_PRESSED:
                 app.connectionManager.broadcast( {type: BUTTON_PRESSED, buttonIndex: action.buttonIndex } );
+            break;
+            case BUTTONS_UPDATE:
+                app.mainWindow.getSender().send( MAIN_RENDER_CHANNEL, deliverButtonSettings( action.buttons ) );
             break;
             default:
                 result = next( action );
