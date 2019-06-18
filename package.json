@@ -12,7 +12,7 @@
     "dev": "npm run dev:main",
     "dev:main": "npm run start:main -- -dev",
     "dev:render": "webpack-dev-server --config ./render/webpack.config.js",
-    "start": "npm run build && npm run start:main",
+    "start": "npm run start:main",
     "start:main": "electron ./main/src"
   },
   "author": "Denju",
