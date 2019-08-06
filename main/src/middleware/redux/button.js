@@ -20,7 +20,10 @@ const buttonMiddleware = ( { getState, dispatch } ) =>
             case BUTTON_PRESSED:
                 app.connectionManager.broadcast( {type: BUTTON_PRESSED, buttonIndex: action.buttonIndex } );
             break;
+            // store button settings in config and send it to the render process
             case BUTTONS_UPDATE:
+                app.conf.set( "buttons", action.buttons );
+                
                 app.mainWindow.getSender().send( MAIN_RENDER_CHANNEL, deliverButtonSettings( action.buttons ) );
             break;
             default:
