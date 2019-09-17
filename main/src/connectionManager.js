@@ -20,6 +20,8 @@ class ConnectionManager
             res.send( "open macro board" );
         });
 
+        this.createUploadRoute();
+
         io.on( "connection", (socket) =>
         {
             console.log( "a user connected" );
@@ -41,6 +43,27 @@ class ConnectionManager
         this.httpServer.listen( port, () =>
         {
             console.log( "server is listening on port " + port );
+        });
+    }
+
+    createUploadRoute()
+    {
+        const multer = require( "multer" );
+        // SET STORAGE
+        const storage = multer.diskStorage({
+            destination: (req, file, cb) => {
+                cb(null, 'icons');
+            },
+            filename: (req, file, cb) => {
+                cb(null, "icon" + req.params.buttonIndex + "." + file.originalname.split(".").pop());
+            }
+        });
+        
+        const upload = multer({ storage });
+
+        this.expressApp.post( "/icon/upload/:buttonIndex", upload.single('icon'), (req, res, next) => {
+            console.log( req.params.buttonIndex );
+            res.json({success: true});
         });
     }
 

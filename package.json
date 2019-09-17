@@ -21,6 +21,7 @@
     "configstore": "^4.0.0",
     "electron": "^4.0.4",
     "express": "^4.16.4",
+    "multer": "^1.4.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
