@@ -15,6 +15,7 @@ class MainWindow
             transparent: false,
             webPreferences: {
                 nodeIntegration: false,
+                contextIsolation: false,
                 preload: __dirname + "/preload.js"
             }
         });
