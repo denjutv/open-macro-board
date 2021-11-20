@@ -7,40 +7,11 @@
     "url": "https://github.com/denjutv/open-macro-board.git"
   },
   "scripts": {
-    "build": "npm run build:render",
-    "build:render": "webpack --config ./render/webpack.config.js",
-    "dev": "npm run dev:main",
-    "dev:main": "npm run start:main -- -dev",
-    "dev:render": "webpack-dev-server --config ./render/webpack.config.js",
-    "start": "npm run start:main",
-    "start:main": "electron ./main/src"
   },
   "author": "Denju",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.1",
-    "configstore": "^4.0.0",
-    "electron": "^4.0.4",
-    "express": "^4.16.4",
-    "multer": "^1.4.2",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-redux": "^6.0.0",
-    "redux": "^4.0.1",
-    "socket.io": "^2.2.0"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "css-loader": "^2.1.1",
-    "html-webpack-plugin": "^3.2.0",
-    "portfinder": "^1.0.20",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.29.1",
-    "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.1.14"
   }
 }
