@@ -7,11 +7,38 @@
     "url": "https://github.com/denjutv/open-macro-board.git"
   },
   "scripts": {
+    "build": "npm run build:board && npm run build:client",
+    "build:board": "node ./board/renderer/esbuild",
+    "build:client": "node ./client/renderer/esbuild",
+    "dev": "concurrently --kill-others \"npm run dev:board\" \"npm run dev:client\"",
+    "dev:board": "npm run build:board -- --watch",
+    "dev:client": "npm run build:client -- --watch",
+    "start:board": "electron ./board/main/src",
+    "start:client": "electron ./client/main/src"
   },
   "author": "Denju",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^10.0.0",
+    "electron": "^16.0.1",
+    "esbuild": "^0.14.7",
+    "express": "^4.17.2",
+    "lokijs": "^1.5.12",
+    "multer": "^1.4.4",
+    "redux": "^4.1.2",
+    "socket.io": "^4.4.0",
+    "socket.io-client": "^4.4.0"
   },
   "devDependencies": {
+    "concurrently": "^6.5.1",
+    "esbuild-sass-plugin": "^1.8.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6"
+  },
+  "imports": {
+    "#board/*": "./board/main/src/*.js",
+    "#client/*": "./client/main/src/*.js",
+    "#shared/*": "./shared/*.js"
   }
 }
