@@ -1,9 +1,9 @@
-const buttonReducer = ( state = null, action ) => {
-  switch( action.type ) {
-      
-  }
+import { createReducer } from '@reduxjs/toolkit';
 
-  return state;
-};
+const buttonReducer = createReducer(null, (builder) => {
+    builder.addCase( 'foo', (state, action) => {
+
+    });
+});
 
 export default buttonReducer;

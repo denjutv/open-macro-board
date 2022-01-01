@@ -49,7 +49,7 @@ class App {
     
     const rootReducer = require( '#client/reducer/root' );
     const forewardMiddleareCreator = require( '#shared/middleware/foreward' );
-    this.storeService.init( rootReducer, {}, [forewardMiddleareCreator(this.forewardService)] );
+    this.storeService.init( rootReducer, [forewardMiddleareCreator(this.forewardService)] );
     this.dbService.init();
     this.ipcService.init( this.storeService );
     this.websocketService.init( this.storeService );

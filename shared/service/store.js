@@ -1,11 +1,16 @@
-const { createStore, applyMiddleware } = require( 'redux' );
+const { configureStore } = require( '@reduxjs/toolkit' );
 
 class StoreService {
   constructor() {
   }
 
-  init( rootReducer, initialState, middlewares ) {
-    this.store = createStore( rootReducer, initialState, applyMiddleware( ...middlewares ) );
+  init( rootReducer, middlewares, initialState = {} ) {
+    this.store = configureStore({
+      reducer: rootReducer,
+      middleware: middlewares,
+      preloadedState: initialState,
+      devTools: DEBUG
+    });
   }
 
   dispatch( action ) {

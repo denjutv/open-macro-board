@@ -7,7 +7,7 @@ import BoardContainer from './container/board';
 import forewardMiddleareCreator from '@shared/middleware/foreward';
 import IpcService from '@shared/service/ipcRenderer';
 import ForewardService from './service/foreward';
-import { CLIENT_RENDERER_CREATED } from '@shared/actionType';
+import { clientRendererCreated } from '@shared/action';
 
 import './app.style.scss';
 
@@ -25,7 +25,7 @@ class App {
       contentElement
     );
 
-    this.storeService.dispatch( {type:CLIENT_RENDERER_CREATED} );
+    this.storeService.dispatch( clientRendererCreated() );
   }
 
   initServices() {
@@ -33,7 +33,7 @@ class App {
     this.ipcService = new IpcService();
     this.forewardService = new ForewardService();
 
-    this.storeService.init( rootReducer, {}, [forewardMiddleareCreator(this.forewardService)] );
+    this.storeService.init( rootReducer, [forewardMiddleareCreator(this.forewardService)] );
     this.ipcService.init( this.storeService );
     this.forewardService.init( this.ipcService );
   }

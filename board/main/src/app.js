@@ -47,7 +47,7 @@ class App {
     
     const rootReducer = require( '#board/reducer/root' );
     const forewardMiddleareCreator = require( '#shared/middleware/foreward' );
-    this.storeService.init( rootReducer, {}, [forewardMiddleareCreator(this.forewardService)] );
+    this.storeService.init( rootReducer, [forewardMiddleareCreator(this.forewardService)] );
     this.dbService.init();
     this.webserverService.init( '8081', this.storeService );
     this.ipcService.init( this.storeService );

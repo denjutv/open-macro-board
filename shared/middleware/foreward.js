@@ -8,7 +8,6 @@ const forewardMiddleareCreator = (forewardService) => ( {getState, dispatch} ) =
 }
 
 function logAction(action) {
-  console.log(DEBUG);
   if( DEBUG ) {
     const logAction = {...action};
   
