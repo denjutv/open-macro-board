@@ -13,12 +13,13 @@ class App {
   async init() {
     await this.waitUntilAppIsReady();
 
-    this.initServices();
+    await this.initServices();
 
+    const {BOARD_WEBSERVER_DEFAULT_PORT: port} = require( '#shared/defaults' );
     this.websocketService.createConnection( {
       name: 'foo',
       host: '127.0.0.1',
-      port: '8081'
+      port: port
     } );
 
     await this.createMainWindow();
@@ -34,14 +35,16 @@ class App {
     });
   }
 
-  initServices() {
+  async initServices() {
     const StoreService = require( '#shared/service/store' );
+    const FileService = require( '#shared/service/file' );
     const DbService = require( '#shared/service/db' );
     const IpcService = require( '#shared/service/ipcMain' );
     const WebsocketService = require( '#client/service/websocket' );
     const ForewardService = require( '#client/service/foreward' );
 
     this.storeService = new StoreService();
+    this.fileService = new FileService();
     this.dbService = new DbService();
     this.ipcService = new IpcService();
     this.websocketService = new WebsocketService();
@@ -50,7 +53,8 @@ class App {
     const rootReducer = require( '#client/reducer/root' );
     const forewardMiddleareCreator = require( '#shared/middleware/foreward' );
     this.storeService.init( rootReducer, [forewardMiddleareCreator(this.forewardService)] );
-    this.dbService.init();
+    this.fileService.init();
+    await this.dbService.init( this.fileService, path.join( __dirname, '..', '..' ) );
     this.ipcService.init( this.storeService );
     this.websocketService.init( this.storeService );
     this.forewardService.init( this.ipcService, this.websocketService );

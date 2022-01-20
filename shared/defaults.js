@@ -1,0 +1,3 @@
+module.exports = {
+  BOARD_WEBSERVER_DEFAULT_PORT: process.env.BOARD_WEBSERVER_DEFAULT_PORT || '8097'
+}

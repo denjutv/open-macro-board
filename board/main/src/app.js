@@ -13,7 +13,7 @@ class App {
   async init() {
     await this.waitUntilAppIsReady();
 
-    this.initServices();
+    await this.initServices();
 
     await this.createMainWindow();
     this.registerAllWindwosClodesHandler();
@@ -32,26 +32,33 @@ class App {
     });
   }
 
-  initServices() {
+  async initServices() {
     const StoreService = require('#shared/service/store');
+    const FileService = require('#shared/service/file');
     const DbService = require('#shared/service/db');
     const WebserverService = require('#board/service/webserver');
     const IpcService = require( '#shared/service/ipcMain' );
     const ForewardService = require( '#board/service/foreward' );
+    const SettingsService = require( '#shared/service/settings' );
 
     this.storeService = new StoreService();
+    this.fileService = new FileService();
     this.dbService = new DbService();
     this.webserverService = new WebserverService();
     this.ipcService = new IpcService();
     this.forewardService = new ForewardService();
+    this.settingsService = new SettingsService();
     
     const rootReducer = require( '#board/reducer/root' );
     const forewardMiddleareCreator = require( '#shared/middleware/foreward' );
     this.storeService.init( rootReducer, [forewardMiddleareCreator(this.forewardService)] );
-    this.dbService.init();
-    this.webserverService.init( '8081', this.storeService );
+    this.fileService.init();
+    await this.dbService.init( this.fileService, path.join( __dirname, '..', '..' ) );
+    const {BOARD_WEBSERVER_DEFAULT_PORT: port} = require( '#shared/defaults' );
+    this.webserverService.init( port, this.storeService );
     this.ipcService.init( this.storeService );
     this.forewardService.init( this.ipcService, this.webserverService );
+    this.settingsService.init( this.dbService );
   }
 
   createMainWindow() {
