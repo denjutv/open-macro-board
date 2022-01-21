@@ -7,7 +7,9 @@ class WebserverService
     this.httpServer = null;
   }
 
-  init( port, storeService ) {
+  init( settingsService, storeService ) {
+    const port = settingsService.get('port');
+    
     this.setupWebserver( port );
     this.setupWebsockets( storeService );
 

@@ -16,7 +16,7 @@ class FileService {
   }
 
   checkIfDirectoryExists( dirPath ) {
-    const fs = require('fs')
+    const fs = require('fs');
     return fs.existsSync(dirPath);
   }
 

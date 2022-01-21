@@ -25,6 +25,15 @@ class DbService {
   getCollection( name ) {
     return this.db.getCollection( name );
   }
+
+  createCollection( name, options ) {
+    let collection = this.getCollection( name );
+    if( !collection ) {
+      console.log(`add ${name} collection`);
+      collection = this.addCollection( name, options  );
+    }
+    return collection;
+  }
 }
 
 module.exports = DbService;

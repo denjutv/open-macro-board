@@ -18,6 +18,8 @@ class App {
     await this.createMainWindow();
     this.registerAllWindwosClodesHandler();
 
+    await this.loadButtons();
+
     // setTimeout( () => {
     //   this.ipcService.send({fi:'fu', type:'test', lastHop: 'BOARD_MAIN'});
     // }, 5000);
@@ -40,6 +42,7 @@ class App {
     const IpcService = require( '#shared/service/ipcMain' );
     const ForewardService = require( '#board/service/foreward' );
     const SettingsService = require( '#shared/service/settings' );
+    const ButtonsService = require('#board/service/buttons');
 
     this.storeService = new StoreService();
     this.fileService = new FileService();
@@ -48,17 +51,18 @@ class App {
     this.ipcService = new IpcService();
     this.forewardService = new ForewardService();
     this.settingsService = new SettingsService();
+    this.buttonsService = new ButtonsService();
     
     const rootReducer = require( '#board/reducer/root' );
     const forewardMiddleareCreator = require( '#shared/middleware/foreward' );
     this.storeService.init( rootReducer, [forewardMiddleareCreator(this.forewardService)] );
     this.fileService.init();
     await this.dbService.init( this.fileService, path.join( __dirname, '..', '..' ) );
-    const {BOARD_WEBSERVER_DEFAULT_PORT: port} = require( '#shared/defaults' );
-    this.webserverService.init( port, this.storeService );
+    this.settingsService.init( this.dbService );
+    this.webserverService.init( this.settingsService, this.storeService );
     this.ipcService.init( this.storeService );
     this.forewardService.init( this.ipcService, this.webserverService );
-    this.settingsService.init( this.dbService );
+    this.buttonsService.init( this.dbService, this.settingsService );
   }
 
   createMainWindow() {
@@ -98,6 +102,15 @@ class App {
           this.app.quit();
       }
     });
+  }
+
+  async loadButtons() {
+    const buttonsCollectionName = 'buttons';
+    let buttonsCollection = this.dbService.getCollection( buttonsCollectionName );
+    if( !buttonsCollection ) {
+      console.log('add buttons collection');
+      buttonsCollection = this.dbService.addCollection( buttonsCollectionName, { indices: ['id'] }  );
+    }
   }
 }
 
