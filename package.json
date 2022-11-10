@@ -20,7 +20,7 @@
   "dependencies": {
     "axios": "^0.19.1",
     "configstore": "^4.0.0",
-    "electron": "^4.0.4",
+    "electron": "^18.3.7",
     "express": "^4.16.4",
     "multer": "^1.4.2",
     "react": "^16.7.0",
